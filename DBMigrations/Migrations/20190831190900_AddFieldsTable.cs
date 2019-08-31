@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using FluentMigrator;
+﻿using FluentMigrator;
 
 namespace DBMigrations.Migrations
 {
@@ -11,7 +8,7 @@ namespace DBMigrations.Migrations
         public override void Up()
         {
             Create.Table("Fields")
-                .WithColumn("Id").AsInt64().PrimaryKey().Identity()
+                .WithColumn("Id").AsGuid().PrimaryKey()
                 .WithColumn("Culture").AsString()
                 .WithColumn("Ready").AsDateTime()
                 .WithColumn("Grazing").AsDateTime()
