@@ -8,3 +8,18 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+@section Scripts{
+<script src="~/lib/aspnet-signalr/signalr.js"></script>
+<script>
+    debugger;
+    var connection = new signalR.HubConnectionBuilder()
+        .withUrl("/test")
+        .build();
+
+    connection.on("OnFieldsChanged", function (data) {
+        console.log(data);
+    });
+    connection.start();
+</script>
+}
