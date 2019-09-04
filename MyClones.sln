@@ -5,7 +5,11 @@ VisualStudioVersion = 16.0.29215.179
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DBMigrations", "DBMigrations\DBMigrations.csproj", "{502D01FB-DF98-4E73-9FF9-5CAC638D5568}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVC.MyClones", "MVC.MyClones\MVC.MyClones.csproj", "{78420D53-D463-4E6F-BDDD-BF8F4AF5553F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MVC.MyClones", "MVC.MyClones\MVC.MyClones.csproj", "{78420D53-D463-4E6F-BDDD-BF8F4AF5553F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Interfaces", "Services.Interfaces\Services.Interfaces.csproj", "{A58CC080-4E63-4A0B-ACA8-C890F723744B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Realizations", "Services.Realizations\Services.Realizations.csproj", "{F1300B70-3F41-4E85-8F30-2A069E147B6D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{78420D53-D463-4E6F-BDDD-BF8F4AF5553F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78420D53-D463-4E6F-BDDD-BF8F4AF5553F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{78420D53-D463-4E6F-BDDD-BF8F4AF5553F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A58CC080-4E63-4A0B-ACA8-C890F723744B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A58CC080-4E63-4A0B-ACA8-C890F723744B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A58CC080-4E63-4A0B-ACA8-C890F723744B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A58CC080-4E63-4A0B-ACA8-C890F723744B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1300B70-3F41-4E85-8F30-2A069E147B6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1300B70-3F41-4E85-8F30-2A069E147B6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1300B70-3F41-4E85-8F30-2A069E147B6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1300B70-3F41-4E85-8F30-2A069E147B6D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

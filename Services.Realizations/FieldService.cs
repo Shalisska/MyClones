@@ -1,15 +1,10 @@
-﻿using System;
+﻿using Services.Interfaces;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace MVC.MyClones.Services
+namespace Services.Realizations
 {
-    public interface IFieldService
-    {
-        string GetFields();
-    }
-
     public class FieldService : IFieldService
     {
         public string GetFields()

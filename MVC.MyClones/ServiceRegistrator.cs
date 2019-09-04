@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Microsoft.AspNetCore.SignalR;
-using MVC.MyClones.Services;
+using Services.Interfaces;
+using Services.Realizations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
