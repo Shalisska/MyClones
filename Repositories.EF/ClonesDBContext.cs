@@ -8,6 +8,12 @@ namespace Data.EF
 {
     public class ClonesDbContext : DbContext
     {
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    if (!optionsBuilder.IsConfigured)
+        //        optionsBuilder.UseSqlServer("Data Source=(LocalDb)\\MSSQLLocalDB;Initial Catalog=Clones;Integrated Security=True;");
+        //}
+
         public DbSet<Field> Fields { get; set; }
     }
 }
