@@ -31,7 +31,8 @@ namespace DBMigrations
                     // Add SQLite support to FluentMigrator
                     .AddSqlServer()
                     // Set the connection string
-                    .WithGlobalConnectionString("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=D:\\projects\\MyClonesData\\MyClones.mdf;Integrated Security=True;Connect Timeout=30")
+                    //.WithGlobalConnectionString("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=D:\\projects\\MyClonesData\\MyClones.mdf;Integrated Security=True;Connect Timeout=30")
+                    .WithGlobalConnectionString("Data Source=(LocalDb)\\MSSQLLocalDB;Initial Catalog=Clones;Integrated Security=True;")
                     // Define the assembly containing the migrations
                     .ScanIn(typeof(AddFieldsTable).Assembly).For.Migrations())
                 // Enable logging to console in the FluentMigrator way

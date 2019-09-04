@@ -10,13 +10,19 @@ namespace DBMigrations.Migrations
             Create.Table("Fields")
                 .WithColumn("Id").AsGuid().PrimaryKey()
                 .WithColumn("Culture").AsString()
-                .WithColumn("Ready").AsDateTime()
-                .WithColumn("Grazing").AsDateTime()
-                .WithColumn("Fertilizing").AsDateTime()
-                .WithColumn("Sowing").AsDateTime()
-                .WithColumn("Growing").AsDateTime()
-                .WithColumn("Harvesting").AsDateTime()
-                .WithColumn("Restoring").AsDateTime();
+                .WithColumn("Ready").AsDateTime2()
+                .WithColumn("Grazing").AsDateTime2()
+                .WithColumn("Fertilizing").AsDateTime2()
+                .WithColumn("Sowing").AsDateTime2()
+                .WithColumn("Growing").AsDateTime2()
+                .WithColumn("Harvesting").AsDateTime2()
+                .WithColumn("Restoring").AsDateTime2()
+                .WithColumn("GrazingPeriod").AsTime()
+                .WithColumn("FertilizingPeriod").AsTime()
+                .WithColumn("SowingPeriod").AsTime()
+                .WithColumn("GrowingPeriod").AsTime()
+                .WithColumn("HarvestingPeriod").AsTime()
+                .WithColumn("RestoringPeriod").AsTime();
         }
     }
 }
