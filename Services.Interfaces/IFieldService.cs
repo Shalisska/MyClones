@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data.EF.Entities;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,6 +7,8 @@ namespace Services.Interfaces
 {
     public interface IFieldService
     {
-        string GetFields();
+        IEnumerable<Field> GetFields();
+
+        void AddNewField();
     }
 }

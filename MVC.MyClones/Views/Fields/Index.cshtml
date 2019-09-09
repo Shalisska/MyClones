@@ -1,0 +1,119 @@
+﻿@model IEnumerable<Data.EF.Entities.Field>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="AddNewField">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Culture)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ready)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Grazing)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fertilizing)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sowing)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Growing)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Harvesting)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Restoring)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GrazingPeriod)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FertilizingPeriod)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SowingPeriod)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GrowingPeriod)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HarvestingPeriod)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RestoringPeriod)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Culture)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ready)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Grazing)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fertilizing)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sowing)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Growing)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Harvesting)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Restoring)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GrazingPeriod)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FertilizingPeriod)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SowingPeriod)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GrowingPeriod)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HarvestingPeriod)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RestoringPeriod)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

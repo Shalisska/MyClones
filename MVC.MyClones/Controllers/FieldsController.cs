@@ -2,23 +2,42 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Data.EF.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Services.Interfaces;
 
 namespace MVC.MyClones.Controllers
 {
     public class FieldsController : Controller
     {
+        private IFieldService _fieldService;
+
+        public FieldsController(
+            IFieldService fieldService)
+        {
+            _fieldService = fieldService;
+        }
+
         // GET: Fields
         public ActionResult Index()
         {
-            return View();
+            var fields = _fieldService.GetFields();
+
+            return View(fields);
         }
 
         // GET: Fields/Details/5
         public ActionResult Details(int id)
         {
             return View();
+        }
+
+        public ActionResult AddNewField()
+        {
+            _fieldService.AddNewField();
+
+            return RedirectToAction("Index");
         }
 
         // GET: Fields/Create
@@ -30,7 +49,7 @@ namespace MVC.MyClones.Controllers
         // POST: Fields/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(/*IFormCollection collection*/Field field)
         {
             try
             {

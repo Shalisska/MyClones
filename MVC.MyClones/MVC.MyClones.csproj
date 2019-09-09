@@ -21,9 +21,4 @@
     <ProjectReference Include="..\Services.Realizations\Services.Realizations.csproj" />
   </ItemGroup>
 
-
-  <ItemGroup>
-    <Folder Include="Pages\Fields\" />
-  </ItemGroup>
-
 </Project>

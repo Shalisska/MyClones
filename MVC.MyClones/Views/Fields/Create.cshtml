@@ -1,0 +1,100 @@
+﻿@model Data.EF.Entities.Field
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Field</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Culture" class="control-label"></label>
+                <input asp-for="Culture" class="form-control" />
+                <span asp-validation-for="Culture" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+                <label asp-for="Ready" class="control-label"></label>
+                <input asp-for="Ready" class="form-control" />
+                <span asp-validation-for="Ready" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Grazing" class="control-label"></label>
+                <input asp-for="Grazing" class="form-control" />
+                <span asp-validation-for="Grazing" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Fertilizing" class="control-label"></label>
+                <input asp-for="Fertilizing" class="form-control" />
+                <span asp-validation-for="Fertilizing" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sowing" class="control-label"></label>
+                <input asp-for="Sowing" class="form-control" />
+                <span asp-validation-for="Sowing" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Growing" class="control-label"></label>
+                <input asp-for="Growing" class="form-control" />
+                <span asp-validation-for="Growing" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Harvesting" class="control-label"></label>
+                <input asp-for="Harvesting" class="form-control" />
+                <span asp-validation-for="Harvesting" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Restoring" class="control-label"></label>
+                <input asp-for="Restoring" class="form-control" />
+                <span asp-validation-for="Restoring" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GrazingPeriod" class="control-label"></label>
+                <input asp-for="GrazingPeriod" class="form-control" />
+                <span asp-validation-for="GrazingPeriod" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FertilizingPeriod" class="control-label"></label>
+                <input asp-for="FertilizingPeriod" class="form-control" />
+                <span asp-validation-for="FertilizingPeriod" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SowingPeriod" class="control-label"></label>
+                <input asp-for="SowingPeriod" class="form-control" />
+                <span asp-validation-for="SowingPeriod" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GrowingPeriod" class="control-label"></label>
+                <input asp-for="GrowingPeriod" class="form-control" />
+                <span asp-validation-for="GrowingPeriod" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HarvestingPeriod" class="control-label"></label>
+                <input asp-for="HarvestingPeriod" class="form-control" />
+                <span asp-validation-for="HarvestingPeriod" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RestoringPeriod" class="control-label"></label>
+                <input asp-for="RestoringPeriod" class="form-control" />
+                <span asp-validation-for="RestoringPeriod" class="text-danger"></span>
+            </div>*@
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
