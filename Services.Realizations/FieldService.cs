@@ -27,6 +27,8 @@ namespace Services.Realizations
         {
             var field = new Field()
             {
+                Culture = "Овес",
+
                 Ready = DateTime.Now,
 
                 GrazingPeriod = TimeSpan.FromHours(48),

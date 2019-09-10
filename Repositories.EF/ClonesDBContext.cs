@@ -11,7 +11,7 @@ namespace Data.EF
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
-                optionsBuilder.UseSqlServer("Data Source=(LocalDb)\\MSSQLLocalDB;Initial Catalog=Clones;Integrated Security=True;");
+                optionsBuilder.UseSqlServer("Data Source=(LocalDb)\\MSSQLLocalDB;Initial Catalog=MyClones;Integrated Security=True;");
         }
 
         public DbSet<Field> Fields { get; set; }

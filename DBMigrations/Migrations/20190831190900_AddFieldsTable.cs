@@ -17,12 +17,12 @@ namespace DBMigrations.Migrations
                 .WithColumn("Growing").AsDateTime2()
                 .WithColumn("Harvesting").AsDateTime2()
                 .WithColumn("Restoring").AsDateTime2()
-                .WithColumn("GrazingPeriod").AsTime()
-                .WithColumn("FertilizingPeriod").AsTime()
-                .WithColumn("SowingPeriod").AsTime()
-                .WithColumn("GrowingPeriod").AsTime()
-                .WithColumn("HarvestingPeriod").AsTime()
-                .WithColumn("RestoringPeriod").AsTime();
+                .WithColumn("GrazingPeriod").AsInt64()
+                .WithColumn("FertilizingPeriod").AsInt64()
+                .WithColumn("SowingPeriod").AsInt64()
+                .WithColumn("GrowingPeriod").AsInt64()
+                .WithColumn("HarvestingPeriod").AsInt64()
+                .WithColumn("RestoringPeriod").AsInt64();
         }
     }
 }

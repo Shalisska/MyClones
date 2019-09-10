@@ -32,7 +32,7 @@ namespace DBMigrations
                     .AddSqlServer()
                     // Set the connection string
                     //.WithGlobalConnectionString("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=D:\\projects\\MyClonesData\\MyClones.mdf;Integrated Security=True;Connect Timeout=30")
-                    .WithGlobalConnectionString("Data Source=(LocalDb)\\MSSQLLocalDB;Initial Catalog=Clones;Integrated Security=True;")
+                    .WithGlobalConnectionString("Data Source=(LocalDb)\\MSSQLLocalDB;Initial Catalog=MyClones;Integrated Security=True;")
                     // Define the assembly containing the migrations
                     .ScanIn(typeof(AddFieldsTable).Assembly).For.Migrations())
                 // Enable logging to console in the FluentMigrator way
