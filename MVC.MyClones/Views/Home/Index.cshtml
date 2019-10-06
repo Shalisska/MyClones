@@ -1,6 +1,4 @@
-﻿@page
-@model IndexModel
-@{
+﻿@{
     ViewData["Title"] = "Home page";
 }
 
@@ -10,8 +8,8 @@
 </div>
 
 @section Scripts{
-<script src="~/lib/aspnet-signalr/signalr.js"></script>
-<script>
+    <script src="~/lib/aspnet-signalr/signalr.js"></script>
+    <script>
     var connection = new signalR.HubConnectionBuilder()
         .withUrl("/test")
         .build();
@@ -20,5 +18,5 @@
         console.log(data);
     });
     connection.start();
-</script>
+    </script>
 }
