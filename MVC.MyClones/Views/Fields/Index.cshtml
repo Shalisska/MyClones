@@ -12,11 +12,15 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
+            <th></th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.Id)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.Culture)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HouseLocation)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Ready)
@@ -39,7 +43,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Restoring)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.GrazingPeriod)
             </th>
             <th>
@@ -56,18 +60,25 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.RestoringPeriod)
-            </th>
-            <th></th>
+            </th>*@
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Id)
+                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.Culture)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HouseLocation)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Ready)
@@ -90,7 +101,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Restoring)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.GrazingPeriod)
             </td>
             <td>
@@ -107,12 +118,7 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.RestoringPeriod)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
+            </td>*@
         </tr>
 }
     </tbody>

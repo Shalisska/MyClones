@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 using Data.EF.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using MVC.MyClones.ViewModels.Fields;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using MVC.MyClones.Models.Fields;
 using Services.Interfaces;
 
 namespace MVC.MyClones.Controllers
@@ -37,14 +38,16 @@ namespace MVC.MyClones.Controllers
         [HttpGet]
         public ActionResult AddFields()
         {
+            var locations = _fieldService.GetHouseLocations();
+            ViewData["Locations"] = new SelectList(locations, "LocationId", "LocationName");
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddFields(AddFieldsViewModel model)
+        public ActionResult AddFields(AddFieldsInputModel input)
         {
-            _fieldService.AddFields(model.Count, model.Location);
+            _fieldService.AddFields(input.Count, input.LocationId);
 
             return RedirectToAction("Index");
         }
@@ -73,20 +76,24 @@ namespace MVC.MyClones.Controllers
         }
 
         // GET: Fields/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(Guid id)
         {
-            return View();
+            var model = new EditFieldModelInput() { Id = id };
+            var crops = _fieldService.GetCrops();
+
+            ViewData["Crops"] = new SelectList(crops, "Id", "Name");
+
+            return View(model);
         }
 
         // POST: Fields/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(EditFieldModelInput input)
         {
             try
             {
-                // TODO: Add update logic here
-
+                _fieldService.UpdateField(input.Id, input.CultureId, input.CurrentStage, input.StartDate);
                 return RedirectToAction(nameof(Index));
             }
             catch

@@ -33,15 +33,4 @@ namespace Data.EF.Entities
         [Column(TypeName = "bigint")]
         public TimeSpan RestoringPeriod { get; set; }
     }
-
-    public enum FieldPeriodType
-    {
-        Ready = 0,
-        Grazing = 1,
-        Fertilizing = 2,
-        Sowing = 3,
-        Growing = 4,
-        Harvesting = 5,
-        Restoring = 6
-    }
 }
