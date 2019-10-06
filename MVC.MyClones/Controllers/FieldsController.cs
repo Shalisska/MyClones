@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Data.EF.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MVC.MyClones.ViewModels.Fields;
 using Services.Interfaces;
 
 namespace MVC.MyClones.Controllers
@@ -33,9 +34,17 @@ namespace MVC.MyClones.Controllers
             return View();
         }
 
-        public ActionResult AddNewField()
+        [HttpGet]
+        public ActionResult AddFields()
         {
-            _fieldService.AddNewField();
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddFields(AddFieldsViewModel model)
+        {
+            _fieldService.AddFields(model.Count, model.Location);
 
             return RedirectToAction("Index");
         }

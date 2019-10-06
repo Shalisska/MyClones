@@ -1,7 +1,5 @@
 ﻿using Data.EF.Entities;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Services.Interfaces
 {
@@ -9,6 +7,6 @@ namespace Services.Interfaces
     {
         IEnumerable<Field> GetFields();
 
-        void AddNewField();
+        void AddFields(int count, string location);
     }
 }

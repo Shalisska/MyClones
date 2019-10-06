@@ -23,11 +23,25 @@ namespace Services.Realizations
             return fields;
         }
 
-        public void AddNewField()
+        public void AddFields(int count, string location)
+        {
+            while(count > 0)
+            {
+                AddNewField(location);
+                count--;
+            }
+            _context.SaveChanges();
+        }
+
+        public void AddNewField(string location)
         {
             var field = new Field()
             {
-                Culture = "Овес",
+                HouseLocation = location,
+
+                CultureSeedPrice = 0m,
+                FertilizePrice = 0m,
+                HarvestTax = 0m,
 
                 Ready = DateTime.Now,
 
@@ -43,7 +57,6 @@ namespace Services.Realizations
             CalcFertilizing(field);
 
             _context.Fields.Add(field);
-            _context.SaveChanges();
         }
 
         private void CalcFertilizing(Field field)

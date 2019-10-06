@@ -9,6 +9,10 @@ namespace Data.EF.Entities
     {
         public Guid Id { get; set; }
         public string Culture { get; set; }
+        public string HouseLocation { get; set; }
+        public decimal CultureSeedPrice { get; set; }
+        public decimal FertilizePrice { get; set; }
+        public decimal HarvestTax { get; set; }
         public DateTime Ready { get; set; }
         public DateTime Grazing { get; set; }
         public DateTime Fertilizing { get; set; }
