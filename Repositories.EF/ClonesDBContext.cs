@@ -18,6 +18,6 @@ namespace Data.EF
                 optionsBuilder.UseSqlServer(connectionString);
         }
 
-        public DbSet<Field> Fields { get; set; }
+        public DbSet<FieldsData> Fields { get; set; }
     }
 }

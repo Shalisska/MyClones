@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Repositories.EF\Data.EF.csproj" />
     <ProjectReference Include="..\Repositories.Interfaces\Repositories.Interfaces.csproj" />
-    <ProjectReference Include="..\Services.Interfaces\Services.Interfaces.csproj" />
   </ItemGroup>
 
 </Project>

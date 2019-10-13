@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Entities.Fields;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -10,17 +11,6 @@ namespace Data.EF.Entities
         public string Name { get; set; }
         public TimeSpan Duration { get; set; }
         public bool NeedConfirm { get; set; }
-    }
-
-    public enum AgriculturalStageEnum
-    {
-        Ready = 0,
-        Grazing = 1,
-        Fertilizing = 2,
-        Sowing = 3,
-        Growing = 4,
-        Harvesting = 5,
-        Restoring = 6
     }
 
     public class AgriculturalStageData

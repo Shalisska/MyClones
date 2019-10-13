@@ -1,5 +1,7 @@
 ﻿using Autofac;
 using Microsoft.AspNetCore.SignalR;
+using Repositories.Interfaces.Fields;
+using Repositories.Realizations.Fields;
 using Services.Interfaces;
 using Services.Realizations;
 using System;
@@ -19,6 +21,7 @@ namespace MVC.MyClones
                 .ExternallyOwned();
 
             builder.RegisterType<FieldService>().As<IFieldService>().SingleInstance();
+            builder.RegisterType<FieldsRepository>().As<IFieldsRepository>().SingleInstance();
         }
     }
 }

@@ -17,13 +17,13 @@
 
 
   <ItemGroup>
-    <ProjectReference Include="..\Repositories.EF\Data.EF.csproj" />
-    <ProjectReference Include="..\Services.Realizations\Services.Realizations.csproj" />
+    <Folder Include="ViewModels\Fields\" />
   </ItemGroup>
 
 
   <ItemGroup>
-    <Folder Include="ViewModels\Fields\" />
+    <ProjectReference Include="..\Repositories.Realizations\Repositories.Realizations.csproj" />
+    <ProjectReference Include="..\Services.Realizations\Services.Realizations.csproj" />
   </ItemGroup>
 
 </Project>

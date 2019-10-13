@@ -1,6 +1,8 @@
 ﻿using Data.EF;
 using Data.EF.Entities;
+using Domain.Entities.Fields;
 using Microsoft.EntityFrameworkCore;
+using Repositories.Interfaces.Fields;
 using Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -11,14 +13,16 @@ namespace Services.Realizations
 {
     public class FieldService : IFieldService
     {
-        ClonesDbContext _context;
+        IFieldsRepository _fieldsRepository;
+
         HouseLocationData _houseLocationData = new HouseLocationData();
         AgriculturalStageData _agriculturalStageData = new AgriculturalStageData();
         CropData _cropData = new CropData();
 
-        public FieldService()
+        public FieldService(
+            IFieldsRepository fieldsRepository)
         {
-            _context = new ClonesDbContext();
+            _fieldsRepository = fieldsRepository;
         }
 
         public IEnumerable<HouseLocation> GetHouseLocations()
@@ -33,14 +37,14 @@ namespace Services.Realizations
 
         public IEnumerable<Field> GetFields()
         {
-            var fields = _context.Fields;
+            var fields = _fieldsRepository.GetFields();
 
             return fields;
         }
 
         public Field GetField(Guid id)
         {
-            var field = _context.Fields.Find(id);
+            var field = _fieldsRepository.GetField(id);
             return field;
         }
 
@@ -70,23 +74,23 @@ namespace Services.Realizations
                     break;
             }
 
-            _context.Entry(field).State = EntityState.Modified;
-            _context.SaveChanges();
+            _fieldsRepository.UpdateField(field);
         }
 
         public void AddFields(int count, int locationId)
         {
             var location = _houseLocationData.HouseLocations.FirstOrDefault(l => l.LocationId == locationId);
+            var fields = new List<Field>();
 
             while(count > 0)
             {
-                AddNewField(location.LocationName);
+                AddNewFieldToList(location.LocationName, fields);
                 count--;
             }
-            _context.SaveChanges();
+            _fieldsRepository.AddFields(fields);
         }
 
-        private void AddNewField(string location)
+        private void AddNewFieldToList(string location, List<Field> fields)
         {
             var stages = _agriculturalStageData.AgriculturalStages;
 
@@ -111,7 +115,7 @@ namespace Services.Realizations
             field.Grazing = field.Ready;
             CalcFertilizing(field);
 
-            _context.Fields.Add(field);
+            fields.Add(field);
         }
 
         private TimeSpan GetPeriodByStage(List<AgriculturalStage> stages, AgriculturalStageEnum currentStage)

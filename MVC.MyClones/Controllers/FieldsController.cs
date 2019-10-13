@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Data.EF.Entities;
+using Domain.Entities.Fields;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -91,15 +91,17 @@ namespace MVC.MyClones.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(EditFieldModelInput input)
         {
-            try
-            {
-                _fieldService.UpdateField(input.Id, input.CultureId, input.CurrentStage, input.StartDate);
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            _fieldService.UpdateField(input.Id, input.CultureId, input.CurrentStage, input.StartDate);
+            return RedirectToAction(nameof(Index));
+            //try
+            //{
+            //    _fieldService.UpdateField(input.Id, input.CultureId, input.CurrentStage, input.StartDate);
+            //    return RedirectToAction(nameof(Index));
+            //}
+            //catch
+            //{
+            //    return View();
+            //}
         }
 
         // GET: Fields/Delete/5

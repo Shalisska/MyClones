@@ -5,7 +5,8 @@ using System.Text;
 
 namespace Data.EF.Entities
 {
-    public class Field
+    [Table("Fields")]
+    public class FieldsData
     {
         public Guid Id { get; set; }
         public string Culture { get; set; }
