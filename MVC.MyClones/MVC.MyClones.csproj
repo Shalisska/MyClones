@@ -17,11 +17,6 @@
 
 
   <ItemGroup>
-    <Folder Include="ViewModels\Fields\" />
-  </ItemGroup>
-
-
-  <ItemGroup>
     <ProjectReference Include="..\Repositories.Realizations\Repositories.Realizations.csproj" />
     <ProjectReference Include="..\Services.Realizations\Services.Realizations.csproj" />
   </ItemGroup>

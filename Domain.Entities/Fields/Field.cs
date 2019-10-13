@@ -25,5 +25,7 @@ namespace Domain.Entities.Fields
         public TimeSpan GrowingPeriod { get; set; }
         public TimeSpan HarvestingPeriod { get; set; }
         public TimeSpan RestoringPeriod { get; set; }
+
+        public List<FieldsStage> FieldsStages { get; set; }
     }
 }

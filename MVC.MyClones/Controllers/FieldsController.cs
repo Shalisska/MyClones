@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MVC.MyClones.Models.Fields;
+using MVC.MyClones.ViewModels.Fields;
 using Services.Interfaces;
 
 namespace MVC.MyClones.Controllers
@@ -26,7 +27,9 @@ namespace MVC.MyClones.Controllers
         {
             var fields = _fieldService.GetFields();
 
-            return View(fields);
+            var fieldsList = fields.Select(f => new FieldViewModel(f)).ToList();
+
+            return View(fieldsList);
         }
 
         // GET: Fields/Details/5

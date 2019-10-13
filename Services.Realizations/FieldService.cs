@@ -4,6 +4,7 @@ using Domain.Entities.Fields;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Interfaces.Fields;
 using Services.Interfaces;
+using Services.Interfaces.Fields;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,15 +15,17 @@ namespace Services.Realizations
     public class FieldService : IFieldService
     {
         IFieldsRepository _fieldsRepository;
+        IFieldsStageService _fieldsStageService;
 
         HouseLocationData _houseLocationData = new HouseLocationData();
-        AgriculturalStageData _agriculturalStageData = new AgriculturalStageData();
         CropData _cropData = new CropData();
 
         public FieldService(
-            IFieldsRepository fieldsRepository)
+            IFieldsRepository fieldsRepository,
+            IFieldsStageService fieldsStageService)
         {
             _fieldsRepository = fieldsRepository;
+            _fieldsStageService = fieldsStageService;
         }
 
         public IEnumerable<HouseLocation> GetHouseLocations()
@@ -54,25 +57,34 @@ namespace Services.Realizations
             var culture = _cropData.Crops.FirstOrDefault(c => c.Id == cultureId);
             field.Culture = culture.Name;
 
-            switch (stage)
+            //switch (stage)
+            //{
+            //    case AgriculturalStageEnum.Grazing:
+            //        field.Grazing = startDate;
+            //        CalcFertilizing(field);
+            //        break;
+            //    case AgriculturalStageEnum.Fertilizing:
+            //        field.Fertilizing = startDate;
+            //        CalcSowing(field);
+            //        break;
+            //    case AgriculturalStageEnum.Sowing:
+            //        field.Sowing = startDate;
+            //        CalcGrowing(field);
+            //        break;
+            //    case AgriculturalStageEnum.Harvesting:
+            //        field.Harvesting = startDate;
+            //        CalcRestoring(field);
+            //        break;
+            //}
+
+            var currentStage = new FieldsStage
             {
-                case AgriculturalStageEnum.Grazing:
-                    field.Grazing = startDate;
-                    CalcFertilizing(field);
-                    break;
-                case AgriculturalStageEnum.Fertilizing:
-                    field.Fertilizing = startDate;
-                    CalcSowing(field);
-                    break;
-                case AgriculturalStageEnum.Sowing:
-                    field.Sowing = startDate;
-                    CalcGrowing(field);
-                    break;
-                case AgriculturalStageEnum.Harvesting:
-                    field.Harvesting = startDate;
-                    CalcRestoring(field);
-                    break;
-            }
+                Id = stage,
+                StartDate = startDate,
+                IsCurrent = true
+            };
+            var stages = _fieldsStageService.CalculateStagesFromCurrent(field.FieldsStages, currentStage);
+            field.FieldsStages = stages;
 
             _fieldsRepository.UpdateField(field);
         }
@@ -92,7 +104,8 @@ namespace Services.Realizations
 
         private void AddNewFieldToList(string location, List<Field> fields)
         {
-            var stages = _agriculturalStageData.AgriculturalStages;
+            //var stages = _agriculturalStageData.AgriculturalStages;
+
 
             var field = new Field()
             {
@@ -100,20 +113,30 @@ namespace Services.Realizations
 
                 CultureSeedPrice = 0m,
                 FertilizePrice = 0m,
-                HarvestTax = 0m,
+                HarvestTax = 0m
 
-                Ready = DateTime.Now,
+                //Ready = DateTime.Now,
 
-                GrazingPeriod = GetPeriodByStage(stages, AgriculturalStageEnum.Grazing),
-                FertilizingPeriod = GetPeriodByStage(stages, AgriculturalStageEnum.Fertilizing),
-                SowingPeriod = GetPeriodByStage(stages, AgriculturalStageEnum.Sowing),
-                GrowingPeriod = GetPeriodByStage(stages, AgriculturalStageEnum.Growing),
-                HarvestingPeriod = GetPeriodByStage(stages, AgriculturalStageEnum.Harvesting),
-                RestoringPeriod = GetPeriodByStage(stages, AgriculturalStageEnum.Restoring)
+                //GrazingPeriod = GetPeriodByStage(stages, AgriculturalStageEnum.Grazing),
+                //FertilizingPeriod = GetPeriodByStage(stages, AgriculturalStageEnum.Fertilizing),
+                //SowingPeriod = GetPeriodByStage(stages, AgriculturalStageEnum.Sowing),
+                //GrowingPeriod = GetPeriodByStage(stages, AgriculturalStageEnum.Growing),
+                //HarvestingPeriod = GetPeriodByStage(stages, AgriculturalStageEnum.Harvesting),
+                //RestoringPeriod = GetPeriodByStage(stages, AgriculturalStageEnum.Restoring)
             };
 
-            field.Grazing = field.Ready;
-            CalcFertilizing(field);
+            //field.Grazing = field.Ready;
+            //CalcFertilizing(field);
+
+            var currentStage = new FieldsStage
+            {
+                Id = AgriculturalStageEnum.Ready,
+                StartDate = DateTime.Now,
+                IsCurrent = true
+            };
+
+            var stages = _fieldsStageService.CalculateStagesFromCurrent(currentStage);
+            field.FieldsStages = stages;
 
             fields.Add(field);
         }

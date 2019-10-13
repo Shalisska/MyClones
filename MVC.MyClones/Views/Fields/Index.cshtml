@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Domain.Entities.Fields.Field>
+﻿@model IEnumerable<MVC.MyClones.ViewModels.Fields.FieldViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -14,8 +14,8 @@
         <tr>
             <th></th>
             @*<th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>*@
+            @Html.DisplayNameFor(model => model.Id)
+        </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.Culture)
             </th>
@@ -23,57 +23,72 @@
                 @Html.DisplayNameFor(model => model.HouseLocation)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Ready)
+                @Html.DisplayNameFor(model => model.CurrentStage)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Grazing)
+                @Html.DisplayNameFor(model => model.NextStage)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Fertilizing)
+                @Html.DisplayNameFor(model => model.CurrentStageStartDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Sowing)
+                @Html.DisplayNameFor(model => model.CurrentStageEndDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Growing)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Harvesting)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Restoring)
+                @Html.DisplayNameFor(model => model.CurrentStageDuration)
             </th>
             @*<th>
-                @Html.DisplayNameFor(model => model.GrazingPeriod)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FertilizingPeriod)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SowingPeriod)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GrowingPeriod)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HarvestingPeriod)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RestoringPeriod)
-            </th>*@
+            @Html.DisplayNameFor(model => model.Ready)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Grazing)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fertilizing)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sowing)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Growing)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Harvesting)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Restoring)
+        </th>*@
+            @*<th>
+            @Html.DisplayNameFor(model => model.GrazingPeriod)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FertilizingPeriod)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SowingPeriod)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GrowingPeriod)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HarvestingPeriod)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RestoringPeriod)
+        </th>*@
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>
             @*<td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>*@
+            @Html.DisplayFor(modelItem => item.Id)
+        </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.Culture)
             </td>
@@ -81,44 +96,59 @@
                 @Html.DisplayFor(modelItem => item.HouseLocation)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Ready)
+                @Html.DisplayFor(modelItem => item.CurrentStage)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Grazing)
+                @Html.DisplayFor(modelItem => item.NextStage)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Fertilizing)
+                @Html.DisplayFor(modelItem => item.CurrentStageStartDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Sowing)
+                @Html.DisplayFor(modelItem => item.CurrentStageEndDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Growing)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Harvesting)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Restoring)
+                @Html.DisplayFor(modelItem => item.CurrentStageDuration)
             </td>
             @*<td>
-                @Html.DisplayFor(modelItem => item.GrazingPeriod)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FertilizingPeriod)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SowingPeriod)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GrowingPeriod)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HarvestingPeriod)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RestoringPeriod)
-            </td>*@
+            @Html.DisplayFor(modelItem => item.Ready)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Grazing)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fertilizing)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sowing)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Growing)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Harvesting)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Restoring)
+        </td>*@
+            @*<td>
+            @Html.DisplayFor(modelItem => item.GrazingPeriod)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FertilizingPeriod)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SowingPeriod)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GrowingPeriod)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HarvestingPeriod)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RestoringPeriod)
+        </td>*@
         </tr>
 }
     </tbody>
