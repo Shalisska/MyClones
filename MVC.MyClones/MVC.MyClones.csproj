@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.9.4" />
-    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.4.0" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="5.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
@@ -17,8 +17,8 @@
 
 
   <ItemGroup>
-    <ProjectReference Include="..\Repositories.Realizations\Repositories.Realizations.csproj" />
-    <ProjectReference Include="..\Services.Realizations\Services.Realizations.csproj" />
+    <ProjectReference Include="..\Repositories.Realizations\Repositories.Implementations.csproj" />
+    <ProjectReference Include="..\Services.Realizations\Services.Implementations.csproj" />
   </ItemGroup>
 
 </Project>

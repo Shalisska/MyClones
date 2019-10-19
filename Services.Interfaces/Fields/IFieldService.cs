@@ -3,7 +3,7 @@ using Domain.Entities.Fields;
 using System;
 using System.Collections.Generic;
 
-namespace Services.Interfaces
+namespace Services.Contracts.Fields
 {
     public interface IFieldService
     {

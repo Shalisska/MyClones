@@ -7,21 +7,23 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DBMigrations", "DBMigration
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MVC.MyClones", "MVC.MyClones\MVC.MyClones.csproj", "{78420D53-D463-4E6F-BDDD-BF8F4AF5553F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services.Interfaces", "Services.Interfaces\Services.Interfaces.csproj", "{A58CC080-4E63-4A0B-ACA8-C890F723744B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services.Contracts", "Services.Interfaces\Services.Contracts.csproj", "{A58CC080-4E63-4A0B-ACA8-C890F723744B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services.Realizations", "Services.Realizations\Services.Realizations.csproj", "{F1300B70-3F41-4E85-8F30-2A069E147B6D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services.Implementations", "Services.Realizations\Services.Implementations.csproj", "{F1300B70-3F41-4E85-8F30-2A069E147B6D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.EF", "Repositories.EF\Data.EF.csproj", "{BE3588BB-D379-4642-AED5-C469F82BFBAE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.Entities", "Domain.Entities\Domain.Entities.csproj", "{F43ABB97-84E6-4051-ACC5-31D58E0AE7C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.Entities", "Domain.Entities\Domain.Entities.csproj", "{F43ABB97-84E6-4051-ACC5-31D58E0AE7C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repositories.Interfaces", "Repositories.Interfaces\Repositories.Interfaces.csproj", "{9662713E-29BD-4D9F-86E8-50CADB469AD6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repositories.Interfaces", "Repositories.Interfaces\Repositories.Interfaces.csproj", "{9662713E-29BD-4D9F-86E8-50CADB469AD6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.Domain", "1.Domain", "{D5BE4283-9DA5-492C-A19D-B122CE418B07}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.Data", "2.Data", "{9001CAFB-54D4-430A-94D3-7EF68295ACAE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repositories.Realizations", "Repositories.Realizations\Repositories.Realizations.csproj", "{0417F603-B0E5-4272-A20A-7E74192093D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repositories.Implementations", "Repositories.Realizations\Repositories.Implementations.csproj", "{0417F603-B0E5-4272-A20A-7E74192093D3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.Services", "3.Services", "{E7D919D9-06BE-451E-B9E1-5F4A3E2AEDCF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +69,8 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{502D01FB-DF98-4E73-9FF9-5CAC638D5568} = {9001CAFB-54D4-430A-94D3-7EF68295ACAE}
+		{A58CC080-4E63-4A0B-ACA8-C890F723744B} = {E7D919D9-06BE-451E-B9E1-5F4A3E2AEDCF}
+		{F1300B70-3F41-4E85-8F30-2A069E147B6D} = {E7D919D9-06BE-451E-B9E1-5F4A3E2AEDCF}
 		{BE3588BB-D379-4642-AED5-C469F82BFBAE} = {9001CAFB-54D4-430A-94D3-7EF68295ACAE}
 		{F43ABB97-84E6-4051-ACC5-31D58E0AE7C4} = {D5BE4283-9DA5-492C-A19D-B122CE418B07}
 		{9662713E-29BD-4D9F-86E8-50CADB469AD6} = {D5BE4283-9DA5-492C-A19D-B122CE418B07}

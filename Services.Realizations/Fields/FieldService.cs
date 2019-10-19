@@ -3,14 +3,14 @@ using Data.EF.Entities;
 using Domain.Entities.Fields;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Interfaces.Fields;
-using Services.Interfaces;
-using Services.Interfaces.Fields;
+using Services.Contracts;
+using Services.Contracts.Fields;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Services.Realizations
+namespace Services.Implementations.Fields
 {
     public class FieldService : IFieldService
     {

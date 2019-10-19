@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR;
-using Services.Interfaces;
+using Services.Contracts.Fields;
 using System;
 using System.Collections.Generic;
 using System.Linq;

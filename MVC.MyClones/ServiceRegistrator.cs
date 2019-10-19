@@ -1,16 +1,9 @@
 ﻿using Autofac;
 using Microsoft.AspNetCore.SignalR;
-using Repositories.Interfaces.Fields;
-using Repositories.Realizations.Fields;
-using Services.Interfaces;
-using Services.Interfaces.Fields;
-using Services.Realizations;
-using Services.Realizations.Fields;
-using System;
-using System.Collections.Generic;
+using Repositories.Implementations.Modules;
+using Services.Implementations.Modules;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 
 namespace MVC.MyClones
 {
@@ -22,10 +15,11 @@ namespace MVC.MyClones
                 .Where(t => typeof(Hub).IsAssignableFrom(t))
                 .ExternallyOwned();
 
-            builder.RegisterType<FieldService>().As<IFieldService>().SingleInstance();
-            builder.RegisterType<FieldsStageService>().As<IFieldsStageService>().SingleInstance();
+            var servicesModule = new ServicesModule(builder);
+            servicesModule.LoadServices();
 
-            builder.RegisterType<FieldsRepository>().As<IFieldsRepository>().SingleInstance();
+            var repositoriesModule = new RepositoriesModule(builder);
+            repositoriesModule.LoadRepositories();
         }
     }
 }

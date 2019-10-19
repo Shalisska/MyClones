@@ -1,12 +1,12 @@
 ﻿using Data.EF.Entities;
 using Domain.Entities.Fields;
-using Services.Interfaces.Fields;
+using Services.Contracts.Fields;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Services.Realizations.Fields
+namespace Services.Implementations.Fields
 {
     public class FieldsStageService : IFieldsStageService
     {
