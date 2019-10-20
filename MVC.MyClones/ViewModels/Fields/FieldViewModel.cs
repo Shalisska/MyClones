@@ -1,8 +1,6 @@
 ﻿using Domain.Entities.Fields;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace MVC.MyClones.ViewModels.Fields
 {
@@ -10,7 +8,7 @@ namespace MVC.MyClones.ViewModels.Fields
     {
         public FieldViewModel(Field field)
         {
-            var currentStage = field.FieldsStages.FirstOrDefault(s => s.IsCurrent);
+            var currentStage = field.FieldsStages.Values.FirstOrDefault(s => s.IsCurrent);
 
             Id = field.Id;
             Culture = field.Culture;

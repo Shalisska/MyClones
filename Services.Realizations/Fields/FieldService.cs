@@ -1,14 +1,10 @@
-﻿using Data.EF;
-using Data.EF.Entities;
+﻿using Data.EF.Entities;
 using Domain.Entities.Fields;
-using Microsoft.EntityFrameworkCore;
 using Repositories.Interfaces.Fields;
-using Services.Contracts;
 using Services.Contracts.Fields;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Services.Implementations.Fields
 {
@@ -57,26 +53,6 @@ namespace Services.Implementations.Fields
             var culture = _cropData.Crops.FirstOrDefault(c => c.Id == cultureId);
             field.Culture = culture.Name;
 
-            //switch (stage)
-            //{
-            //    case AgriculturalStageEnum.Grazing:
-            //        field.Grazing = startDate;
-            //        CalcFertilizing(field);
-            //        break;
-            //    case AgriculturalStageEnum.Fertilizing:
-            //        field.Fertilizing = startDate;
-            //        CalcSowing(field);
-            //        break;
-            //    case AgriculturalStageEnum.Sowing:
-            //        field.Sowing = startDate;
-            //        CalcGrowing(field);
-            //        break;
-            //    case AgriculturalStageEnum.Harvesting:
-            //        field.Harvesting = startDate;
-            //        CalcRestoring(field);
-            //        break;
-            //}
-
             var currentStage = new FieldsStage
             {
                 Id = stage,
@@ -104,9 +80,6 @@ namespace Services.Implementations.Fields
 
         private void AddNewFieldToList(string location, List<Field> fields)
         {
-            //var stages = _agriculturalStageData.AgriculturalStages;
-
-
             var field = new Field()
             {
                 HouseLocation = location,
@@ -114,19 +87,7 @@ namespace Services.Implementations.Fields
                 CultureSeedPrice = 0m,
                 FertilizePrice = 0m,
                 HarvestTax = 0m
-
-                //Ready = DateTime.Now,
-
-                //GrazingPeriod = GetPeriodByStage(stages, AgriculturalStageEnum.Grazing),
-                //FertilizingPeriod = GetPeriodByStage(stages, AgriculturalStageEnum.Fertilizing),
-                //SowingPeriod = GetPeriodByStage(stages, AgriculturalStageEnum.Sowing),
-                //GrowingPeriod = GetPeriodByStage(stages, AgriculturalStageEnum.Growing),
-                //HarvestingPeriod = GetPeriodByStage(stages, AgriculturalStageEnum.Harvesting),
-                //RestoringPeriod = GetPeriodByStage(stages, AgriculturalStageEnum.Restoring)
             };
-
-            //field.Grazing = field.Ready;
-            //CalcFertilizing(field);
 
             var currentStage = new FieldsStage
             {
@@ -139,53 +100,6 @@ namespace Services.Implementations.Fields
             field.FieldsStages = stages;
 
             fields.Add(field);
-        }
-
-        private TimeSpan GetPeriodByStage(List<AgriculturalStage> stages, AgriculturalStageEnum currentStage)
-        {
-            var stage = stages.FirstOrDefault(s => s.Id == currentStage);
-            return stage.Duration;
-        }
-
-        private void CalcFertilizing(Field field)
-        {
-            field.Fertilizing = field.Grazing + field.GrazingPeriod;
-
-            CalcSowing(field);
-        }
-
-        private void CalcSowing(Field field)
-        {
-            field.Sowing = field.Fertilizing + field.FertilizingPeriod;
-
-            CalcGrowing(field);
-        }
-
-        private void CalcGrowing(Field field)
-        {
-            field.Growing = field.Sowing + field.SowingPeriod;
-
-            CalcHarvesting(field);
-        }
-
-        private void CalcHarvesting(Field field)
-        {
-            field.Harvesting = field.Growing + field.GrowingPeriod;
-
-            CalcRestoring(field);
-        }
-
-        private void CalcRestoring(Field field)
-        {
-            field.Restoring = field.Harvesting + field.HarvestingPeriod;
-
-            CalcReady(field);
-        }
-
-        private void CalcReady(Field field)
-        {
-            if (DateTime.Now > field.Growing)
-                field.Ready = field.Restoring + field.RestoringPeriod;
         }
     }
 }

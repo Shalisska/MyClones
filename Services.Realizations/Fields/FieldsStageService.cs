@@ -4,7 +4,6 @@ using Services.Contracts.Fields;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Services.Implementations.Fields
 {
@@ -12,7 +11,7 @@ namespace Services.Implementations.Fields
     {
         AgriculturalStageData _agriculturalStageData = new AgriculturalStageData();
 
-        public List<FieldsStage> CalculateStagesFromCurrent(List<FieldsStage> stages, FieldsStage currentStage)
+        public Dictionary<AgriculturalStageEnum, FieldsStage> CalculateStagesFromCurrent(Dictionary<AgriculturalStageEnum, FieldsStage> stages, FieldsStage currentStage)
         {
             currentStage.Duration = _agriculturalStageData.AgriculturalStages.FirstOrDefault(s => s.Id == currentStage.Id).Duration;
 
@@ -20,18 +19,18 @@ namespace Services.Implementations.Fields
 
             foreach (var stage in stages)
             {
-                if (stage.Id == currentStage.Id)
+                if (stage.Key == currentStage.Id)
                 {
-                    stage.StartDate = currentStage.StartDate;
+                    stage.Value.StartDate = currentStage.StartDate;
                 }
-                else if (stage.Id > currentStage.Id)
+                else if (stage.Key > currentStage.Id)
                 {
-                    stage.StartDate = nextStageDate;
-                    nextStageDate = stage.StartDate + stage.Duration;
+                    stage.Value.StartDate = nextStageDate;
+                    nextStageDate = stage.Value.StartDate + stage.Value.Duration;
 
-                    if (stage.Id == AgriculturalStageEnum.Restoring && currentStage.Id > AgriculturalStageEnum.Grazing)
+                    if (stage.Key == AgriculturalStageEnum.Restoring && currentStage.Id > AgriculturalStageEnum.Grazing)
                     {
-                        stages[0].StartDate = nextStageDate;
+                        stages[AgriculturalStageEnum.Ready].StartDate = nextStageDate;
                     }
                 }
             }
@@ -39,14 +38,14 @@ namespace Services.Implementations.Fields
             return stages;
         }
 
-        public List<FieldsStage> CalculateStagesFromCurrent(FieldsStage currentStage)
+        public Dictionary<AgriculturalStageEnum, FieldsStage> CalculateStagesFromCurrent(FieldsStage currentStage)
         {
-            var stages = new List<FieldsStage>();
+            var stages = new Dictionary<AgriculturalStageEnum, FieldsStage>();
 
             var stagesInfo = _agriculturalStageData.AgriculturalStages.Where(s => s.Id > currentStage.Id);
 
             currentStage.Duration = _agriculturalStageData.AgriculturalStages.FirstOrDefault(s => s.Id == currentStage.Id).Duration;
-            stages.Add(currentStage);
+            stages.Add(currentStage.Id, currentStage);
             var nextStageDate = currentStage.StartDate + currentStage.Duration;
 
             foreach(var stage in stagesInfo)
@@ -58,7 +57,7 @@ namespace Services.Implementations.Fields
                     Duration = stage.Duration,
                     IsCurrent = false
                 };
-                stages.Add(newStage);
+                stages.Add(stage.Id, newStage);
                 nextStageDate = newStage.StartDate + newStage.Duration;
             }
 

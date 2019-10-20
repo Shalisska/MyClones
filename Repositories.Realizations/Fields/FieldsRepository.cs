@@ -6,7 +6,6 @@ using Repositories.Interfaces.Fields;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Repositories.Realizations.Fields
 {
@@ -17,12 +16,6 @@ namespace Repositories.Realizations.Fields
         public FieldsRepository()
         {
             _context = new ClonesDbContext();
-        }
-
-        private FieldsStage GetCurrentStage(AgriculturalStageEnum id, List<FieldsStage> stages)
-        {
-            var stage = stages.FirstOrDefault(s => s.Id == id);
-            return stage;
         }
 
         public void AddFields(List<Field> fields)
@@ -40,20 +33,20 @@ namespace Repositories.Realizations.Fields
                     FertilizePrice = field.FertilizePrice,
                     HarvestTax = field.HarvestTax,
 
-                    Ready = GetCurrentStage(AgriculturalStageEnum.Ready, field.FieldsStages).StartDate,
-                    GrazingPeriod = GetCurrentStage(AgriculturalStageEnum.Grazing, field.FieldsStages).Duration,
-                    FertilizingPeriod = GetCurrentStage(AgriculturalStageEnum.Fertilizing, field.FieldsStages).Duration,
-                    SowingPeriod = GetCurrentStage(AgriculturalStageEnum.Sowing, field.FieldsStages).Duration,
-                    GrowingPeriod = GetCurrentStage(AgriculturalStageEnum.Growing, field.FieldsStages).Duration,
-                    HarvestingPeriod = GetCurrentStage(AgriculturalStageEnum.Harvesting, field.FieldsStages).Duration,
-                    RestoringPeriod = GetCurrentStage(AgriculturalStageEnum.Restoring, field.FieldsStages).Duration,
+                    Ready = field.FieldsStages[AgriculturalStageEnum.Ready].StartDate,
+                    Grazing = field.FieldsStages[AgriculturalStageEnum.Grazing].StartDate,
+                    Fertilizing = field.FieldsStages[AgriculturalStageEnum.Fertilizing].StartDate,
+                    Sowing = field.FieldsStages[AgriculturalStageEnum.Sowing].StartDate,
+                    Growing = field.FieldsStages[AgriculturalStageEnum.Growing].StartDate,
+                    Harvesting = field.FieldsStages[AgriculturalStageEnum.Harvesting].StartDate,
+                    Restoring = field.FieldsStages[AgriculturalStageEnum.Restoring].StartDate,
 
-                    Grazing = GetCurrentStage(AgriculturalStageEnum.Grazing, field.FieldsStages).StartDate,
-                    Fertilizing = GetCurrentStage(AgriculturalStageEnum.Fertilizing, field.FieldsStages).StartDate,
-                    Sowing = GetCurrentStage(AgriculturalStageEnum.Sowing, field.FieldsStages).StartDate,
-                    Growing = GetCurrentStage(AgriculturalStageEnum.Growing, field.FieldsStages).StartDate,
-                    Harvesting = GetCurrentStage(AgriculturalStageEnum.Harvesting, field.FieldsStages).StartDate,
-                    Restoring = GetCurrentStage(AgriculturalStageEnum.Restoring, field.FieldsStages).StartDate
+                    GrazingPeriod = field.FieldsStages[AgriculturalStageEnum.Grazing].Duration,
+                    FertilizingPeriod = field.FieldsStages[AgriculturalStageEnum.Fertilizing].Duration,
+                    SowingPeriod = field.FieldsStages[AgriculturalStageEnum.Sowing].Duration,
+                    GrowingPeriod = field.FieldsStages[AgriculturalStageEnum.Growing].Duration,
+                    HarvestingPeriod = field.FieldsStages[AgriculturalStageEnum.Harvesting].Duration,
+                    RestoringPeriod = field.FieldsStages[AgriculturalStageEnum.Restoring].Duration
                 };
                 fieldsData.Add(item);
             }
@@ -80,40 +73,26 @@ namespace Repositories.Realizations.Fields
                 CultureSeedPrice = field.CultureSeedPrice,
                 FertilizePrice = field.FertilizePrice,
                 HarvestTax = field.HarvestTax,
-
-                Ready = field.Ready,
-                GrazingPeriod = field.GrazingPeriod,
-                FertilizingPeriod = field.FertilizingPeriod,
-                SowingPeriod = field.SowingPeriod,
-                GrowingPeriod = field.GrowingPeriod,
-                HarvestingPeriod = field.HarvestingPeriod,
-                RestoringPeriod = field.RestoringPeriod,
-
-                Grazing = field.Grazing,
-                Fertilizing = field.Fertilizing,
-                Sowing = field.Sowing,
-                Growing = field.Growing,
-                Harvesting = field.Harvesting,
-                Restoring = field.Restoring
             };
 
-            var stages = GetFieldsStages(result);
+            var stages = GetFieldsStages(field);
             result.FieldsStages = stages;
 
             return result;
         }
 
-        private List<FieldsStage> GetFieldsStages(Field field)
+        private Dictionary<AgriculturalStageEnum, FieldsStage> GetFieldsStages(FieldsData field)
         {
-            var stages = new List<FieldsStage>();
-
-            stages.Add(BuildFieldStage(AgriculturalStageEnum.Ready, field.Ready, new TimeSpan(0)));
-            stages.Add(BuildFieldStage(AgriculturalStageEnum.Grazing, field.Grazing, field.GrazingPeriod));
-            stages.Add(BuildFieldStage(AgriculturalStageEnum.Fertilizing, field.Fertilizing, field.FertilizingPeriod));
-            stages.Add(BuildFieldStage(AgriculturalStageEnum.Sowing, field.Sowing, field.SowingPeriod));
-            stages.Add(BuildFieldStage(AgriculturalStageEnum.Growing, field.Growing, field.GrowingPeriod));
-            stages.Add(BuildFieldStage(AgriculturalStageEnum.Harvesting, field.Harvesting, field.HarvestingPeriod));
-            stages.Add(BuildFieldStage(AgriculturalStageEnum.Restoring, field.Restoring, field.RestoringPeriod));
+            var stages = new Dictionary<AgriculturalStageEnum, FieldsStage>
+            {
+                { AgriculturalStageEnum.Ready, BuildFieldStage(AgriculturalStageEnum.Ready, field.Ready, new TimeSpan(0)) },
+                { AgriculturalStageEnum.Grazing, BuildFieldStage(AgriculturalStageEnum.Grazing, field.Grazing, field.GrazingPeriod) },
+                { AgriculturalStageEnum.Fertilizing, BuildFieldStage(AgriculturalStageEnum.Fertilizing, field.Fertilizing, field.FertilizingPeriod) },
+                { AgriculturalStageEnum.Sowing, BuildFieldStage(AgriculturalStageEnum.Sowing, field.Sowing, field.SowingPeriod) },
+                { AgriculturalStageEnum.Growing, BuildFieldStage(AgriculturalStageEnum.Growing, field.Growing, field.GrowingPeriod) },
+                { AgriculturalStageEnum.Harvesting, BuildFieldStage(AgriculturalStageEnum.Harvesting, field.Harvesting, field.HarvestingPeriod) },
+                { AgriculturalStageEnum.Restoring, BuildFieldStage(AgriculturalStageEnum.Restoring, field.Restoring, field.RestoringPeriod) }
+            };
 
             return stages;
         }
@@ -132,7 +111,7 @@ namespace Repositories.Realizations.Fields
 
         public IEnumerable<Field> GetFields()
         {
-            var fieldsDto = _context.Fields;
+            var fieldsDto = _context.Fields.ToList();
             var fields = new List<Field>();
 
             foreach(var fieldDto in fieldsDto)
@@ -157,20 +136,20 @@ namespace Repositories.Realizations.Fields
                 FertilizePrice = field.FertilizePrice,
                 HarvestTax = field.HarvestTax,
 
-                Ready = GetCurrentStage(AgriculturalStageEnum.Ready, field.FieldsStages).StartDate,
-                GrazingPeriod = GetCurrentStage(AgriculturalStageEnum.Grazing, field.FieldsStages).Duration,
-                FertilizingPeriod = GetCurrentStage(AgriculturalStageEnum.Fertilizing, field.FieldsStages).Duration,
-                SowingPeriod = GetCurrentStage(AgriculturalStageEnum.Sowing, field.FieldsStages).Duration,
-                GrowingPeriod = GetCurrentStage(AgriculturalStageEnum.Growing, field.FieldsStages).Duration,
-                HarvestingPeriod = GetCurrentStage(AgriculturalStageEnum.Harvesting, field.FieldsStages).Duration,
-                RestoringPeriod = GetCurrentStage(AgriculturalStageEnum.Restoring, field.FieldsStages).Duration,
+                Ready = field.FieldsStages[AgriculturalStageEnum.Ready].StartDate,
+                Grazing = field.FieldsStages[AgriculturalStageEnum.Grazing].StartDate,
+                Fertilizing = field.FieldsStages[AgriculturalStageEnum.Fertilizing].StartDate,
+                Sowing = field.FieldsStages[AgriculturalStageEnum.Sowing].StartDate,
+                Growing = field.FieldsStages[AgriculturalStageEnum.Growing].StartDate,
+                Harvesting = field.FieldsStages[AgriculturalStageEnum.Harvesting].StartDate,
+                Restoring = field.FieldsStages[AgriculturalStageEnum.Restoring].StartDate,
 
-                Grazing = GetCurrentStage(AgriculturalStageEnum.Grazing, field.FieldsStages).StartDate,
-                Fertilizing = GetCurrentStage(AgriculturalStageEnum.Fertilizing, field.FieldsStages).StartDate,
-                Sowing = GetCurrentStage(AgriculturalStageEnum.Sowing, field.FieldsStages).StartDate,
-                Growing = GetCurrentStage(AgriculturalStageEnum.Growing, field.FieldsStages).StartDate,
-                Harvesting = GetCurrentStage(AgriculturalStageEnum.Harvesting, field.FieldsStages).StartDate,
-                Restoring = GetCurrentStage(AgriculturalStageEnum.Restoring, field.FieldsStages).StartDate
+                GrazingPeriod = field.FieldsStages[AgriculturalStageEnum.Grazing].Duration,
+                FertilizingPeriod = field.FieldsStages[AgriculturalStageEnum.Fertilizing].Duration,
+                SowingPeriod = field.FieldsStages[AgriculturalStageEnum.Sowing].Duration,
+                GrowingPeriod = field.FieldsStages[AgriculturalStageEnum.Growing].Duration,
+                HarvestingPeriod = field.FieldsStages[AgriculturalStageEnum.Harvesting].Duration,
+                RestoringPeriod = field.FieldsStages[AgriculturalStageEnum.Restoring].Duration
             };
 
             _context.Entry(fieldDto).State = EntityState.Modified;
