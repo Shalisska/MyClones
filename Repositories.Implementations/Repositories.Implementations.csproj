@@ -1,17 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.9.4" />
+    <PackageReference Include="Autofac.Configuration" Version="4.1.0" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="5.0.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Domain.Entities\Domain.Entities.csproj" />
+    <ProjectReference Include="..\Repositories.Contracts\Repositories.Contracts.csproj" />
     <ProjectReference Include="..\Repositories.EF\Data.EF.csproj" />
-    <ProjectReference Include="..\Repositories.Interfaces\Repositories.Interfaces.csproj" />
   </ItemGroup>
 
 </Project>

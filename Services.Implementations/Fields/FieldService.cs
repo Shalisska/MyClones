@@ -1,6 +1,6 @@
 ﻿using Data.EF.Entities;
 using Domain.Entities.Fields;
-using Repositories.Interfaces.Fields;
+using Repositories.Contracts.Fields;
 using Services.Contracts.Fields;
 using System;
 using System.Collections.Generic;

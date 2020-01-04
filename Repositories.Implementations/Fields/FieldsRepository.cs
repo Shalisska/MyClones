@@ -2,7 +2,7 @@
 using Data.EF.Entities;
 using Domain.Entities.Fields;
 using Microsoft.EntityFrameworkCore;
-using Repositories.Interfaces.Fields;
+using Repositories.Contracts.Fields;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,17 +11,19 @@ namespace Repositories.Realizations.Fields
 {
     public class FieldsRepository : IFieldsRepository
     {
-        ClonesDbContext _context;
+        //ClonesDbContext _context;
 
         public FieldsRepository()
         {
-            _context = new ClonesDbContext();
+            //_context = new ClonesDbContext();
         }
 
         public void AddFields(List<Field> fields)
         {
+            using var _context = new ClonesDbContext();
             var fieldsData = _context.Fields;
-            foreach(var field in fields)
+
+            foreach (var field in fields)
             {
                 var stages = field.FieldsStages;
 
@@ -56,6 +58,7 @@ namespace Repositories.Realizations.Fields
 
         public Field GetField(Guid id)
         {
+            using var _context = new ClonesDbContext();
             var field = _context.Fields.Find(id);
             _context.Entry(field).State = EntityState.Detached;
             return ConvertFromDto(field);
@@ -111,10 +114,11 @@ namespace Repositories.Realizations.Fields
 
         public IEnumerable<Field> GetFields()
         {
+            using var _context = new ClonesDbContext();
             var fieldsDto = _context.Fields.ToList();
             var fields = new List<Field>();
 
-            foreach(var fieldDto in fieldsDto)
+            foreach (var fieldDto in fieldsDto)
             {
                 var field = ConvertFromDto(fieldDto);
                 fields.Add(field);
@@ -152,6 +156,7 @@ namespace Repositories.Realizations.Fields
                 RestoringPeriod = field.FieldsStages[AgriculturalStageEnum.Restoring].Duration
             };
 
+            using var _context = new ClonesDbContext();
             _context.Entry(fieldDto).State = EntityState.Modified;
             _context.SaveChanges();
         }

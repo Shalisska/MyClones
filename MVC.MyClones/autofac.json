@@ -1,0 +1,10 @@
+{
+    "modules": [
+      {
+        "type": "Services.Implementations.Modules.ServicesModule, Services.Implementations"
+      },
+      {
+        "type": "Repositories.Implementations.Modules.RepositoriesModule, Repositories.Implementations"
+      }
+    ]
+}
