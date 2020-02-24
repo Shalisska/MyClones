@@ -8,7 +8,7 @@ namespace StateMachineTest
         static void Main(string[] args)
         {
             var fsm = new MyStateMachine();
-            fsm.StartProcess();
+            fsm.StartProcess(States.Ready);
 
 
             Console.ReadKey();

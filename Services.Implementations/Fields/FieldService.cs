@@ -89,15 +89,7 @@ namespace Services.Implementations.Fields
                 HarvestTax = 0m
             };
 
-            var currentStage = new FieldsStage
-            {
-                Id = AgriculturalStageEnum.Ready,
-                StartDate = DateTime.Now,
-                IsCurrent = true
-            };
-
-            var stages = _fieldsStageService.CalculateStagesFromCurrent(currentStage);
-            field.FieldsStages = stages;
+            _fieldsStageService.AddStagesToField(field);
 
             fields.Add(field);
         }
