@@ -8,7 +8,7 @@ namespace MVC.MyClones.ViewModels.Fields
     {
         public FieldViewModel(Field field)
         {
-            var currentStage = field.FieldsStages.Values.FirstOrDefault(s => s.IsCurrent) ?? new FieldsStage();
+            var currentStage = field.Stages.FirstOrDefault(s => s.IsCurrent) ?? new FieldsStage();
 
             Id = field.Id;
             Culture = field.Culture;

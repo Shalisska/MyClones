@@ -12,6 +12,6 @@ namespace Domain.Entities.Fields
         public decimal FertilizePrice { get; set; }
         public decimal HarvestTax { get; set; }
 
-        public Dictionary<AgriculturalStageEnum, FieldsStage> FieldsStages { get; set; }
+        public List<FieldsStage> Stages { get; set; }
     }
 }

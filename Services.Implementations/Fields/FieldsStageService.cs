@@ -15,7 +15,7 @@ namespace Services.Implementations.Fields
 
         public StateMachine<AgriculturalStageEnum, ManufactoringStageEvent> GetFieldStagesFSM(Field field)
         {
-            var currentStage = field.FieldsStages.FirstOrDefault(s => s.Value.State == ManufactoringStageState.Processing).Value?.Id ??
+            var currentStage = field.Stages.FirstOrDefault(s => s.State == ManufactoringStageState.Processing)?.Id ??
                                 AgriculturalStageEnum.Grazing;
 
             var machine = new StateMachine<AgriculturalStageEnum, ManufactoringStageEvent>(currentStage);
@@ -66,14 +66,14 @@ namespace Services.Implementations.Fields
 
         private bool IsStagePending(AgriculturalStageEnum targetState, Field field)
         {
-            var targetStage = field.FieldsStages[targetState];
+            var targetStage = field.Stages.FirstOrDefault(s => s.Id == targetState);
 
             return targetStage.State == ManufactoringStageState.Pending;
         }
 
         private void ExecuteOnStartStage(AgriculturalStageEnum state, Field field)
         {
-            var stage = field.FieldsStages[state];
+            var stage = field.Stages.FirstOrDefault(s => s.Id == state);
             var innerMachine = InnerFSM(stage);
             innerMachine.Fire(ManufactoringStageEvent.StartProcess);
         }
@@ -86,7 +86,7 @@ namespace Services.Implementations.Fields
 
         private void ExecuteOnEndStage(AgriculturalStageEnum state, Field field)
         {
-            var stage = field.FieldsStages[state];
+            var stage = field.Stages.FirstOrDefault(s => s.Id == state);
             var innerMachine = InnerFSM(stage);
             innerMachine.Fire(ManufactoringStageEvent.EndStage);
         }
@@ -142,13 +142,13 @@ namespace Services.Implementations.Fields
             machine.Fire(ManufactoringStageEvent.NextStage);
             var state = machine.State;
 
-            return field.FieldsStages[state];
+            return field.Stages.FirstOrDefault(s => s.Id == state);
         }
 
         private FieldsStage GetCurrentStage(StateMachine<AgriculturalStageEnum, ManufactoringStageEvent> machine, Field field)
         {
             var state = machine.State;
-            return field.FieldsStages[state];
+            return field.Stages.FirstOrDefault(s => s.Id == state);
         }
 
         private void EndStage(StateMachine<AgriculturalStageEnum, ManufactoringStageEvent> machine)
@@ -173,36 +173,36 @@ namespace Services.Implementations.Fields
 
 
 
-        public Dictionary<AgriculturalStageEnum, FieldsStage> CalculateStagesFromCurrent(Dictionary<AgriculturalStageEnum, FieldsStage> stages, FieldsStage currentStage)
-        {
-            currentStage.Duration = _agriculturalStageData.AgriculturalStages.FirstOrDefault(s => s.Id == currentStage.Id).Duration;
+        //public Dictionary<AgriculturalStageEnum, FieldsStage> CalculateStagesFromCurrent(Dictionary<AgriculturalStageEnum, FieldsStage> stages, FieldsStage currentStage)
+        //{
+        //    currentStage.Duration = _agriculturalStageData.AgriculturalStages.FirstOrDefault(s => s.Id == currentStage.Id).Duration;
 
-            var nextStageDate = currentStage.StartDate + currentStage.Duration;
+        //    var nextStageDate = currentStage.StartDate + currentStage.Duration;
 
-            foreach (var stage in stages)
-            {
-                if (stage.Key == currentStage.Id)
-                {
-                    stage.Value.StartDate = currentStage.StartDate;
-                }
-                else if (stage.Key > currentStage.Id)
-                {
-                    stage.Value.StartDate = nextStageDate;
-                    nextStageDate = stage.Value.StartDate + stage.Value.Duration;
+        //    foreach (var stage in stages)
+        //    {
+        //        if (stage.Key == currentStage.Id)
+        //        {
+        //            stage.Value.StartDate = currentStage.StartDate;
+        //        }
+        //        else if (stage.Key > currentStage.Id)
+        //        {
+        //            stage.Value.StartDate = nextStageDate;
+        //            nextStageDate = stage.Value.StartDate + stage.Value.Duration;
 
-                    if (stage.Key == AgriculturalStageEnum.Restoring && currentStage.Id > AgriculturalStageEnum.Grazing)
-                    {
-                        stages[AgriculturalStageEnum.Ready].StartDate = nextStageDate;
-                    }
-                }
-            }
+        //            if (stage.Key == AgriculturalStageEnum.Restoring && currentStage.Id > AgriculturalStageEnum.Grazing)
+        //            {
+        //                stages[AgriculturalStageEnum.Ready].StartDate = nextStageDate;
+        //            }
+        //        }
+        //    }
 
-            return stages;
-        }
+        //    return stages;
+        //}
 
         public Field AddStagesToField(Field field)
         {
-            field.FieldsStages = GetDefaultFieldStages();
+            field.Stages = GetDefaultFieldStages();
 
             var machine = GetFieldStagesFSM(field);
 
@@ -211,14 +211,14 @@ namespace Services.Implementations.Fields
             return field;
         }
 
-        private Dictionary<AgriculturalStageEnum, FieldsStage> GetDefaultFieldStages()
+        private List<FieldsStage> GetDefaultFieldStages()
         {
             var stagesInfo = _agriculturalStageData.AgriculturalStages;
-            var stages = new Dictionary<AgriculturalStageEnum, FieldsStage>();
+            var stages = new List<FieldsStage>();
 
             foreach (var stageInfo in stagesInfo)
             {
-                stages.Add(stageInfo.Id, new FieldsStage
+                stages.Add(new FieldsStage
                 {
                     Id = stageInfo.Id,
                     Duration = stageInfo.Duration

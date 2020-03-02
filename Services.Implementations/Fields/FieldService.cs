@@ -59,8 +59,8 @@ namespace Services.Implementations.Fields
                 StartDate = startDate,
                 IsCurrent = true
             };
-            var stages = _fieldsStageService.CalculateStagesFromCurrent(field.FieldsStages, currentStage);
-            field.FieldsStages = stages;
+            //var stages = _fieldsStageService.CalculateStagesFromCurrent(field.FieldsStages, currentStage);
+            //field.FieldsStages = stages;
 
             _fieldsRepository.UpdateField(field);
         }

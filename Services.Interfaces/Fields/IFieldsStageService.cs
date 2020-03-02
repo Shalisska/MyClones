@@ -9,7 +9,7 @@ namespace Services.Contracts.Fields
     {
         (FieldsStage stage, bool needUpdate) GetCurrentStage(List<FieldsStage> stages);
         FieldsStage GetNextStage(List<FieldsStage> stages, AgriculturalStageEnum currentStageId);
-        Dictionary<AgriculturalStageEnum, FieldsStage> CalculateStagesFromCurrent(Dictionary<AgriculturalStageEnum, FieldsStage> stages, FieldsStage currentStage);
+        //Dictionary<AgriculturalStageEnum, FieldsStage> CalculateStagesFromCurrent(Dictionary<AgriculturalStageEnum, FieldsStage> stages, FieldsStage currentStage);
 
         Field AddStagesToField(Field field);
     }
