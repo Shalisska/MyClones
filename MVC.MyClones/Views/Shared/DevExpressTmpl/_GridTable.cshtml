@@ -1,0 +1,160 @@
+﻿@using MVC.MyClones.Extension
+@using MVC.MyClones.Models
+@using Microsoft.AspNetCore.Html
+
+@model DEGridTable
+
+<div id="grid-table"></div>
+
+@Html.PartialSectionStyles(
+    @<link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/19.1.5/css/dx.common.css" />
+)
+@Html.PartialSectionStyles(
+    @<link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/19.1.5/css/dx.light.css" />
+)
+
+@Html.PartialSectionScripts(
+    @<script>
+         $('#grid-table').dxDataGrid({
+            dataSource: @BuildDataSource(Model.DataSource),
+            columns: @BuildColumns(Model.Columns),
+            editing: {
+                mode: "batch",
+                allowUpdating: true,
+                selectTextOnEditStart: true,
+                startEditAction: "click",
+                allowAdding: true,
+                allowDeleting: true
+            },
+
+            groupPanel: { visible: true },
+            filterRow: { visible: true },
+            headerFilter: { visible: true },
+            sorting: {
+                mode: "multiple"
+            },
+            remoteOperations: true,
+            scrolling: {
+                mode: "virtual",
+                rowRenderingMode: "virtual"
+            },
+            paging: {
+                pageSize: 50
+            },
+            customizeColumns: function (columns) {
+                columns[0].width = 70;
+            },
+            allowColumnResizing: true,
+            columnResizingMode: "widget",
+            showRowLines: true,
+            rowAlternationEnabled: true,
+            showBorders: true,
+            columnMinWidth: 50,
+            @if (Model.MasterDetailName != null)
+            {
+                <text>
+                    masterDetail: @Model.MasterDetailName
+                </text>
+            }
+        });
+    </script>
+)
+
+@functions{
+    IHtmlContent BuildColumns(List<DEGridTableColumn> columns)
+    {
+        var strBuilder = new HtmlContentBuilder();
+
+        strBuilder.AppendHtml("[");
+        foreach (var column in columns)
+        {
+            if (column.IsSimple)
+            {
+                var field = BuildColumnDataField(column) as HtmlContentBuilder;
+                field.MoveTo(strBuilder);
+                strBuilder.AppendHtml(",");
+            }
+            else
+            {
+                var content = BuildColumnWithLookup(column) as HtmlContentBuilder;
+                content.MoveTo(strBuilder);
+                strBuilder.AppendHtml(",");
+            }
+        }
+        strBuilder.AppendHtml("]");
+
+        return strBuilder;
+    }
+
+    IHtmlContent BuildColumnDataField(DEGridTableColumn column)
+    {
+        var strBuilder = new HtmlContentBuilder();
+
+        strBuilder.AppendHtml("{");
+        strBuilder.AppendHtml("dataField: \"" + column.DataField + "\",");
+
+        if (!string.IsNullOrEmpty(column.Caption))
+            strBuilder.AppendHtml("caption: \"" + column.Caption + "\",");
+
+        strBuilder.AppendHtml("}");
+
+        return strBuilder;
+    }
+
+    IHtmlContent BuildColumnWithLookup(DEGridTableColumn column)
+    {
+        var strBuilder = new HtmlContentBuilder();
+        var dataSource = BuildDataSource(column.Lookup.DataSource) as HtmlContentBuilder;
+
+        strBuilder.AppendHtml("{");
+        strBuilder.AppendHtml("dataField: \"" + column.DataField + "\",");
+        strBuilder.AppendHtml("caption: \"" + column.Caption + "\",");
+        strBuilder.AppendHtml("lookup: {");
+        strBuilder.AppendHtml("valueExpr: \"" + column.Lookup.ValueExpr + "\",");
+        strBuilder.AppendHtml("displayExpr: \"" + column.Lookup.DisplayExpr + "\",");
+        strBuilder.AppendHtml("dataSource: ");
+        dataSource.MoveTo(strBuilder);
+        strBuilder.AppendHtml("}");
+        strBuilder.AppendHtml("}");
+
+        return strBuilder;
+    }
+
+    IHtmlContent BuildDataSource(DEGridTableDataSource source)
+    {
+        var strBuilder = new HtmlContentBuilder();
+
+        if (source.Type == "customStore")
+            strBuilder.AppendHtml("new DevExpress.data.CustomStore");
+        else
+            strBuilder.AppendHtml("DevExpress.data.AspNet.createStore");
+
+        strBuilder.AppendHtml("({");
+        strBuilder.AppendHtml("key: \"" + source.Key + "\",");
+
+        if (source.LoadParams != null && source.LoadParams.Count > 0)
+        {
+            strBuilder.AppendHtml("loadParams: {");
+            foreach (var param in source.LoadParams)
+                strBuilder.AppendHtml($"{param.Key}: \"{param.Value}\",");
+            strBuilder.AppendHtml("},");
+        }
+
+        strBuilder.AppendHtml("loadUrl: \"" + source.LoadUrl + "\",");
+
+        if (source.UpdateUrl != null)
+            strBuilder.AppendHtml("updateUrl: \"" + source.UpdateUrl + "\",");
+
+        if (source.CreateUrl != null)
+            strBuilder.AppendHtml("insertUrl: \"" + source.CreateUrl + "\",");
+
+        if (source.DeleteUrl != null)
+            strBuilder.AppendHtml("deleteUrl: \"" + source.DeleteUrl + "\",");
+
+        strBuilder.AppendHtml("onBeforeSend: function (operation, ajaxSettings) {");
+        strBuilder.AppendHtml("}");
+        strBuilder.AppendHtml("})");
+
+        return strBuilder;
+    }
+}

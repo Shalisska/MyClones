@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DevExtreme.AspNet.Data;
 using Domain.Entities.Fields;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using MVC.MyClones.Models;
 using MVC.MyClones.Models.Fields;
+using MVC.MyClones.Utils;
 using MVC.MyClones.ViewModels.Fields;
 using Services.Contracts.Fields;
 
@@ -22,14 +25,99 @@ namespace MVC.MyClones.Controllers
             _fieldService = fieldService;
         }
 
+        public IActionResult Index()
+        {
+            var loadActionName = "GetFields";
+            //var updateActionName = "UpdateField";
+            //var createActionName = "CreateField";
+            //var deleteActionName = "DeleteField";
+
+            var source = new DEGridTableDataSource
+            {
+                Type = "createStore",
+                Key = "id",
+                LoadUrl = Url.Action(loadActionName),
+                //UpdateUrl = Url.Action(updateActionName),
+                //CreateUrl = Url.Action(createActionName),
+                //DeleteUrl = Url.Action(deleteActionName)
+            };
+
+            var columns = new List<DEGridTableColumn>();
+            columns.Add(new DEGridTableColumn("id"));
+            columns.Add(new DEGridTableColumn("culture") { Caption = "Культура"});
+
+            var gridTable = new DEGridTable
+            {
+                DataSource = source,
+                Columns = columns
+            };
+
+            return View("DevExpressTmpl/_GridTable", gridTable);
+        }
+
+        [HttpGet("getfields")]
+        public object GetFields(DataSourceLoadOptions loadOptions)
+        {
+            var fields = _fieldService.GetFields();
+            var fieldsList = fields.Select(f => new FieldViewModel(f)).ToList();
+
+            loadOptions.PrimaryKey = new[] { "Id" };
+            loadOptions.PaginateViaPrimaryKey = true;
+
+            return DataSourceLoader.Load(fieldsList, loadOptions);
+        }
+
+        [HttpPut("update-field")]
+        public IActionResult UpdateField(int key, string values)
+        {
+            //var res = _stockManagementService.GetStock(key);
+            //if (res == null)
+            //    return StatusCode(409, "Stock not found");
+
+            //JsonConvert.PopulateObject(values, res);
+
+            //if (!TryValidateModel(res))
+            //    return BadRequest(ModelState.ToFullErrorString());
+
+            //_stockManagementService.UpdateStock(res);
+
+            return Ok();
+        }
+
+        //[HttpPost("create-field")]
+        //public IActionResult CreateField(string values)
+        //{
+        //    var stock = new StockManagementModel();
+        //    JsonConvert.PopulateObject(values, stock);
+
+        //    if (!TryValidateModel(stock))
+        //        return BadRequest(ModelState.ToFullErrorString());
+
+        //    _stockManagementService.CreateStock(stock);
+
+        //    return Json(stock.Id);
+        //}
+
+        //[HttpDelete("delete-field")]
+        //public IActionResult DeleteField(int key)
+        //{
+        //    var stock = _stockManagementService.GetStock(key);
+        //    if (stock == null)
+        //        return StatusCode(409, "Stock not found");
+
+        //    _stockManagementService.DeleteStock(key);
+
+        //    return Ok();
+        //}
+
         // GET: Fields
-        public ActionResult Index()
+        public ActionResult Index1()
         {
             var fields = _fieldService.GetFields();
 
             var fieldsList = fields.Select(f => new FieldViewModel(f)).ToList();
 
-            return View(fieldsList);
+            return View("Index1", fieldsList);
         }
 
         // GET: Fields/Details/5
